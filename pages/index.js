@@ -10,14 +10,26 @@ const inter = Inter({ subsets: ['latin'] })
 const ibm_plex = IBM_Plex_Mono({ subsets: ['latin'], weight:["100", "200", "300", "400", "500", "600", "700"] })
 export default function Home() {
   const [message, set_message] = useState("")
+  const [lowest_score, set_lowest_score] = useState(10000)
+  const [most_likely_message, set_most_likely_message] = useState("")
+  console.log(typeof(lowest_score))
   function handle_message_change(event){
+    set_lowest_score(100000)
     set_message(event.target.value)
   } 
   function encrypted_messages(message) {
     let enc_messages = [];
     for (let i = 0; i < 26; i++) {
       const encrypted = ceaser_cipher(message, i);
-      const score = sentence_score(encrypted).toFixed(2); // Limit to 2 decimal places
+      const score = sentence_score(encrypted); // Limit to 2 decimal places
+      console.log(typeof(score))
+      // console.log(score, lowest_score)
+      if (score < lowest_score) {
+        set_lowest_score(score);
+        set_most_likely_message(encrypted);
+      } else {
+        console.log(score, lowest_score)
+      }
 
       enc_messages.push(
         <p key={i}>
@@ -42,7 +54,9 @@ export default function Home() {
              onChange = {handle_message_change}/>
       </label>
       <p>Striped message: {ceaser_cipher(message)}</p>
-      <h2>Encrypted Messages:</h2>
+      <p><i> The lower the score the better </i></p>
+      <h2>Encrypted Messages, Scores:</h2>
+      <p>Your message is most likely <b>{most_likely_message} </b></p>
       <ul>
         {encrypted_messages(message)}
       </ul>

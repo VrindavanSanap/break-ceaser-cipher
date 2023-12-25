@@ -56,8 +56,7 @@ export function sentence_score(string){
   let freq = word_freq(string)
   let exp_freq = multiply(expected_prob , len)
   let chi_squared_value= chi_squared(exp_freq, freq)
-  const p_value = chisquare.cdf(chi_squared_value, 25);
 
-  return p_value 
+  return parseInt(chi_squared_value )
 }
 console.log(sentence_score(""))
