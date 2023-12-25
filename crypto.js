@@ -59,4 +59,3 @@ export function sentence_score(string){
 
   return parseInt(chi_squared_value )
 }
-console.log(sentence_score(""))

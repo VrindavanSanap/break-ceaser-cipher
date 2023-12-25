@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import {IBM_Plex_Mono, Inter} from 'next/font/google'
@@ -12,8 +12,14 @@ export default function Home() {
   const [message, set_message] = useState("")
   const [lowest_score, set_lowest_score] = useState(10000)
   const [most_likely_message, set_most_likely_message] = useState("")
-  console.log(typeof(lowest_score))
+  useEffect(() => { 
+    handle_message_change({ target: { value: "iylhrjlhzlyjpwoly"}})
+  }, [])
+
+ 
   function handle_message_change(event){
+
+
     set_lowest_score(100000)
     set_message(event.target.value)
   } 
@@ -22,14 +28,12 @@ export default function Home() {
     for (let i = 0; i < 26; i++) {
       const encrypted = ceaser_cipher(message, i);
       const score = sentence_score(encrypted); // Limit to 2 decimal places
-      console.log(typeof(score))
       // console.log(score, lowest_score)
       if (score < lowest_score) {
         set_lowest_score(score);
         set_most_likely_message(encrypted);
-      } else {
-        console.log(score, lowest_score)
-      }
+      } 
+      
 
       enc_messages.push(
         <p key={i}>
