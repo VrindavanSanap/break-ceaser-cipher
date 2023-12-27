@@ -7,7 +7,10 @@ import styles from '@/styles/Home.module.css'
 import {ceaser_cipher, sentence_score} from "../crypto.js"
 
 const inter = Inter({ subsets: ['latin'] })
-const ibm_plex = IBM_Plex_Mono({ subsets: ['latin'], weight:["100", "200", "300", "400", "500", "600", "700"] })
+const ibm_plex = IBM_Plex_Mono({ subsets: ['latin'],
+                  weight:["100", "200", "300", "400", 
+                          "500", "600", "700"] })
+
 export default function Home() {
   const [message, set_message] = useState("")
   const [lowest_score, set_lowest_score] = useState(10000)
@@ -51,12 +54,14 @@ export default function Home() {
 
     <div className = {`${ibm_plex.className}`}>
       <h1>Break Ceaser Cipher</h1>
+
       <label>
       Message:
       <input style = {{fontSize: 18 }}
              value = {message} 
              onChange = {handle_message_change}/>
       </label>
+
       <p>Striped message: {ceaser_cipher(message)}</p>
       <p><i> The lower the score the better </i></p>
       <h2>Encrypted Messages, Scores:</h2>
