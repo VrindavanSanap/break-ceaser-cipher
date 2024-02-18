@@ -28,7 +28,7 @@ export default function Home() {
   function encrypted_messages(message) {
     let enc_messages = [];
     for (let i = 0; i < 26; i++) {
-      const encrypted = ceaser_cipher(message, i);
+      const encrypted = ceaser_cipher(message, i, keep_spaces);
       const score = sentence_score(encrypted); // Limit to 2 decimal places
       // console.log(score, lowest_score)
       if (score < lowest_score) {
@@ -78,7 +78,7 @@ export default function Home() {
         value={keep_spaces}
         onChange={() => { set_keep_spaces(!keep_spaces) }}
       />
-      <p>Striped message: {ceaser_cipher(message)}</p>
+      <p>Striped message: {ceaser_cipher(message,0,keep_spaces)}</p>
       <p><i> The lower the score the better </i></p>
       <h2>Encrypted Messages, Scores:</h2>
       <p>Your message is most likely <b>{most_likely_message} </b></p>
