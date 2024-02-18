@@ -15,14 +15,13 @@ export default function Home() {
   const [message, set_message] = useState("")
   const [lowest_score, set_lowest_score] = useState(10000)
   const [most_likely_message, set_most_likely_message] = useState("")
+  const [keep_spaces, set_keep_spaces] = useState(true)
   useEffect(() => { 
     handle_message_change({ target: { value: "iylhrjlhzlyjpwoly"}})
   }, [])
 
  
   function handle_message_change(event){
-
-
     set_lowest_score(100000)
     set_message(event.target.value)
   } 
@@ -50,6 +49,17 @@ export default function Home() {
     }
     return enc_messages
   }
+
+  const Checkbox = ({ label, value, onChange }) => {
+    return (
+      <label>
+        {label}
+        <input type="checkbox" checked={value} onChange={onChange} />
+      </label>
+    );
+  };
+
+  
   return (
 
     <div className = {`${ibm_plex.className}`}>
@@ -61,7 +71,13 @@ export default function Home() {
              value = {message} 
              onChange = {handle_message_change}/>
       </label>
-
+      <br/>
+      <br/>
+      <Checkbox
+        label=" Keep spaces: "
+        value={keep_spaces}
+        onChange={() => { set_keep_spaces(!keep_spaces) }}
+      />
       <p>Striped message: {ceaser_cipher(message)}</p>
       <p><i> The lower the score the better </i></p>
       <h2>Encrypted Messages, Scores:</h2>
@@ -69,6 +85,7 @@ export default function Home() {
       <ul>
         {encrypted_messages(message)}
       </ul>
+
     </div>
   )
 }
