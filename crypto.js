@@ -14,12 +14,20 @@ for (let i = 0; i < chars.length; i++) {
   itos[i] = ch;
 }
 
-export function ceaser_cipher(string, n = 0){
-  string = string.replace(/[^a-zA-Z]/g, '').toLowerCase();
+export function ceaser_cipher(string, n = 0, keep_spaces = false){
+
+  string = string.replace(/[^a-zA-Z\s]/g, '').toLowerCase();
   let result = "";
   for (let i = 0; i < string.length; i++) {
     let c = string[i];
+    if (c == " ") {
+      result += " "
+      continue
+     }
     result +=  itos[(stoi[c] + n) % 26]
+  }
+  if (!keep_spaces) { 
+    result = result.replace(/\s/g, '')
   }
   return result;
 }
