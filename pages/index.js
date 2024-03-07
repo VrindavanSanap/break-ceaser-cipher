@@ -1,6 +1,5 @@
 "use client"
-import { useState, useEffect} from 'react';
-import Head from 'next/head'
+import { useState, useEffect} from 'react'; import Head from 'next/head'
 import Image from 'next/image'
 import {IBM_Plex_Mono, Inter} from 'next/font/google'
 import styles from '@/styles/Home.module.css'
@@ -16,6 +15,7 @@ export default function Home() {
   const [lowest_score, set_lowest_score] = useState(10000)
   const [most_likely_message, set_most_likely_message] = useState("")
   const [keep_spaces, set_keep_spaces] = useState(true)
+  const [keep_non_alpha, set_keep_non_alpha] = useState(true)
   useEffect(() => { 
     handle_message_change({ target: { value: "iylhrjlhzlyjpwoly"}})
   }, [])
@@ -27,9 +27,10 @@ export default function Home() {
   } 
   function encrypted_messages(message) {
     let enc_messages = [];
+    let score = 10000 
     for (let i = 0; i < 26; i++) {
-      const encrypted = ceaser_cipher(message, i, keep_spaces);
-      const score = sentence_score(encrypted); // Limit to 2 decimal places
+      const encrypted = ceaser_cipher(message, i, keep_spaces, keep_non_alpha);
+      score = sentence_score(encrypted); // Limit to 2 decimal places
       // console.log(score, lowest_score)
       if (score < lowest_score) {
         set_lowest_score(score);
@@ -78,7 +79,13 @@ export default function Home() {
         value={keep_spaces}
         onChange={() => { set_keep_spaces(!keep_spaces) }}
       />
-      <p>Striped message: {ceaser_cipher(message,0,keep_spaces)}</p>
+      <Checkbox
+        label=" Keep non alpha: "
+        value={keep_non_alpha}
+        onChange={() => { set_keep_non_alpha(!keep_non_alpha) }}
+      />
+ 
+      <p>Striped message: {ceaser_cipher(message,0,keep_spaces, keep_non_alpha)}</p>
       <p><i> The lower the score the better </i></p>
       <h2>Encrypted Messages, Scores:</h2>
       <p>Your message is most likely <b>{most_likely_message} </b></p>

@@ -6,13 +6,20 @@ let expected_prob = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228, 0.020
   0.01929, 0.00095, 0.05987, 0.06327, 0.09056, 0.02758, 0.00978, 0.02360,
   0.00150, 0.01974, 0.00074]
 
+const chars_lower = "abcdefghijklmnopqrstuvwxyz";
+const chars_upper = chars_lower.toUpperCase();
+
 export const stoi = {};
 export const itos = {};
-for (let i = 0; i < chars.length; i++) {
-  const ch = chars[i];
-  stoi[ch] = i;
-  itos[i] = ch;
+for (let i = 0; i < 52; i += 2) {
+  const ch_l = chars_lower[i / 2];
+  const ch_u = chars_upper[i / 2];
+  stoi[ch_l] = i;
+  stoi[ch_u] = i + 1;
+  itos[i] = ch_l;
+  itos[i + 1] = ch_u;
 }
+
 export function ceaser_cipher(string, n, keep_spaces = true, keep_non_alpha = true) {
   let result = "";
   n *= 2;
