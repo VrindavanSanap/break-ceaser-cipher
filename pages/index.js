@@ -64,9 +64,11 @@ export default function Home() {
   };
   function handle_keep_spaces_changed() {
     set_keep_spaces(!keep_spaces);
+    set_lowest_score(100000)
   }
   function handle_keep_non_alpha_changed() {
     set_keep_non_alpha(!keep_non_alpha);
+    set_lowest_score(100000)
   }
 
   return (
