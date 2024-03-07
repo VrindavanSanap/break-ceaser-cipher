@@ -13,8 +13,7 @@ for (let i = 0; i < chars.length; i++) {
   stoi[ch] = i;
   itos[i] = ch;
 }
-
-function ceaser_cipher(string, n= 0, keep_spaces = true, keep_non_alpha = true) {
+export function ceaser_cipher(string, n, keep_spaces = true, keep_non_alpha = true) {
   let result = "";
   n *= 2;
   for (let i = 0; i < string.length; i++) {
@@ -39,6 +38,23 @@ function ceaser_cipher(string, n= 0, keep_spaces = true, keep_non_alpha = true) 
 
   return result;
 }
+// export function ceaser_cipher(string, n = 0, keep_spaces = false){
+
+//   string = string.replace(/[^a-zA-Z\s]/g, '').toLowerCase();
+//   let result = "";
+//   for (let i = 0; i < string.length; i++) {
+//     let c = string[i];
+//     if (c == " ") {
+//       result += " "
+//       continue
+//      }
+//     result +=  itos[(stoi[c] + n) % 26]
+//   }
+//   if (!keep_spaces) { 
+//     result = result.replace(/\s/g, '')
+//   }
+//   return result;
+// }
 export function word_freq(string) {
   /*
     Given a string, return frequencies as a list 
