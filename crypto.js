@@ -40,7 +40,7 @@ export function ceaser_cipher(string, n, keep_spaces = true, keep_non_alpha = tr
     result = result.replace(/\s/g, '');
   }
   if (!keep_non_alpha) {
-    result = result.replace(/[^A-Za-z]/g, '');
+    result = result.replace(/[^a-zA-Z\s]/g, '');
   }
 
   return result;
