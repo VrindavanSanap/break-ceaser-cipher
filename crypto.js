@@ -14,21 +14,29 @@ for (let i = 0; i < chars.length; i++) {
   itos[i] = ch;
 }
 
-export function ceaser_cipher(string, n = 0, keep_spaces = false){
-
-  string = string.replace(/[^a-zA-Z\s]/g, '').toLowerCase();
+function ceaser_cipher(string, n= 0, keep_spaces = true, keep_non_alpha = true) {
   let result = "";
+  n *= 2;
   for (let i = 0; i < string.length; i++) {
     let c = string[i];
     if (c == " ") {
       result += " "
       continue
-     }
-    result +=  itos[(stoi[c] + n) % 26]
+    }
+    let ri = itos[(stoi[c] + n) % 52]
+    if (ri !== undefined) {
+      result += ri;
+    } else {
+      result += c;
+    }
   }
-  if (!keep_spaces) { 
-    result = result.replace(/\s/g, '')
+  if (!keep_spaces) {
+    result = result.replace(/\s/g, '');
   }
+  if (!keep_non_alpha) {
+    result = result.replace(/[^A-Za-z]/g, '');
+  }
+
   return result;
 }
 export function word_freq(string) {
